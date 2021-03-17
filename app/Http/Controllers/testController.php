@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class testController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        return response()->json(["test" => $request->name]);
+        return response()->json(["test" => "this is test"]);
     }
 }

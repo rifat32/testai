@@ -30,13 +30,14 @@ class testController extends Controller
         } else {
             DB::table('user_infos')->insert(
                 [
-                    'city' => $request->city,
-                    'country' => $request->country,
-                    'isp' => $request->isp,
                     'ip' => $request->ip,
-                    'region' => $request->region,
-                    'timezone' => $request->timezone,
-                    'zip' => $request->zip,
+                    'continent_name' => $request->continent_name,
+                    'calling_code' => $request->calling_code,
+                    'city' => $request->city,
+                    'country_name' => $request->country_name,
+                    'district' => $request->district,
+                    'zipcode' => $request->zipcode,
+                    'isp' => $request->isp,
                     'website' => $request->website,
                     "visited" => 1,
                     "created_at" =>  \Carbon\Carbon::now(),

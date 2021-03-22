@@ -15,13 +15,15 @@ class CreateUserInfosTable extends Migration
     {
         Schema::create('user_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('city')->nullable();
-            $table->string('country')->nullable();
-            $table->string('isp')->nullable();
             $table->string('ip')->nullable();
-            $table->string('region')->nullable();
-            $table->string('timezone')->nullable();
-            $table->string('zip')->nullable();
+            $table->string('continent_name')->nullable();
+            $table->string('calling_code')->nullable();
+            $table->string('city')->nullable();
+
+            $table->string('country_name')->nullable();
+            $table->string('district')->nullable();
+            $table->string('zipcode')->nullable();
+            $table->string('isp')->nullable();
             $table->string('website');
             $table->string('visited');
             $table->timestamps();

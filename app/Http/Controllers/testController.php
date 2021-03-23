@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Stevebauman\Location\Facades\Location;
 
 class testController extends Controller
 {
@@ -45,7 +46,8 @@ class testController extends Controller
         //         ]
         //     );
         // }
-        return response()->json(["success" => $request->ip()]);
+        $locationData = Location::get();;
+        return response()->json(["success" => $locationData]);
     }
     public function getUserInfo()
     {

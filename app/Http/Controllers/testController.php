@@ -10,25 +10,23 @@ class testController extends Controller
     public function userInfo(Request $request)
     {
 
-        if (DB::table('user_infos')->where([
+        $user = DB::table('user_infos')->where([
             'website' => $request->website,
             'ip' => $request->ip
-        ])->exists()) {
-            $data = DB::table('user_infos')->where([
-                'website' => $request->website,
-                'ip' => $request->ip
-            ])->get();
+        ])->get();
 
-            $visited = $data[0]->visited;
-
+        if (count($user)) {
+            $visited = $user[0]->visited;
             DB::table('user_infos')->where([
                 'website' => $request->website,
                 'ip' => $request->ip
             ])->update([
                 'visited' => $visited + 1
             ]);
+            return response()->json(["success" => $user[0]]);
         } else {
-            DB::table('user_infos')->insert(
+
+            $id =   DB::table('user_infos')->insertGetId(
                 [
                     'ip' => $request->ip,
                     'continent_name' => $request->continent_name,
@@ -44,8 +42,11 @@ class testController extends Controller
                     "updated_at" => \Carbon\Carbon::now(),
                 ]
             );
+            $user =  DB::table('user_infos')->where([
+                'id' => $id
+            ])->get();
+            return response()->json(["success" => $user[0]]);
         }
-        return response()->json(["success" => 'success']);
     }
     public function getUserInfo()
     {

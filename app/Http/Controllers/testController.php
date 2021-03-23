@@ -50,7 +50,29 @@ class testController extends Controller
     }
     public function getUserInfo()
     {
-        $users =  DB::table('user_infos')->get();
+        $users =  DB::table('user_infos')->orderByDesc('id')->get();
         return response()->json($users);
+    }
+    public function userMessage(Request $request)
+    {
+
+        DB::table('messages')->insert(
+            [
+                'name' => $request->name,
+                'email' => $request->email,
+                'message' => $request->message,
+                'visitorId' => $request->visitorId,
+                "created_at" =>  \Carbon\Carbon::now(),
+                "updated_at" => \Carbon\Carbon::now(),
+            ]
+        );
+        return response()->json([
+            'success' => true
+        ]);
+    }
+    public function getUserMessage()
+    {
+        $messages =  DB::table('messages')->orderBy('id')->get();
+        return response()->json($messages);
     }
 }

@@ -20,3 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::post('user', [testController::class, 'userInfo']);
 Route::get('user', [testController::class, 'getUserInfo']);
+
+Route::post('message', [testController::class, 'userMessage']);
+Route::get('message', [testController::class, 'getUserMessage']);

@@ -72,7 +72,7 @@ class testController extends Controller
     }
     public function getUserMessage()
     {
-        $messages =  DB::table('messages')->orderBy('id')->get();
+        $messages =  DB::table('messages')->orderByDesc('id')->get();
         return response()->json($messages);
     }
 }

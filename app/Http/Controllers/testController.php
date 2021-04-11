@@ -93,7 +93,7 @@ class testController extends Controller
             $updated_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $updated_at, 'Asia/Dhaka');
             $message->created_at =  $created_at->setTimezone('UTC');
             $message->updated_at =  $updated_at->setTimezone('UTC');
-            array_push($userRes, $messagesRes);
+            array_push($messagesRes, $message);
         }
         return response()->json($messagesRes);
     }

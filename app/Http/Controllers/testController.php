@@ -51,8 +51,19 @@ class testController extends Controller
     }
     public function getUserInfo()
     {
+
         $users =  DB::table('user_infos')->orderByDesc('id')->get();
-        return response()->json($users);
+        $userRes = [];
+        foreach ($users as $user) {
+            $created_at = $user->created_at;
+            $created_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $created_at, 'Asia/Dhaka');
+            $updated_at = $user->updated_at;
+            $updated_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $updated_at, 'Asia/Dhaka');
+            $user->created_at =  $created_at->setTimezone('UTC');
+            $user->updated_at =  $updated_at->setTimezone('UTC');
+            array_push($userRes, $user);
+        }
+        return response()->json($userRes);
     }
     public function userMessage(Request $request)
     {

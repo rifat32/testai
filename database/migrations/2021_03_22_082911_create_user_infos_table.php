@@ -25,6 +25,7 @@ class CreateUserInfosTable extends Migration
             $table->string('zipcode')->nullable();
             $table->string('isp')->nullable();
             $table->string('website');
+            $table->string('platform');
             $table->string('visited');
             $table->timestamps();
         });

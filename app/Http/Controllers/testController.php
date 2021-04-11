@@ -16,14 +16,28 @@ class testController extends Controller
         ])->get();
 
         if (count($user)) {
+            $platform = $user[0]->platform;
             $visited = $user[0]->visited;
-            DB::table('user_infos')->where([
-                'website' => $request->website,
-                'ip' => $request->ip
-            ])->update([
-                'visited' => $visited + 1,
-                "updated_at" => \Carbon\Carbon::now(),
-            ]);
+            if (str_contains($platform, $request->platform)) {
+                DB::table('user_infos')->where([
+                    'website' => $request->website,
+                    'ip' => $request->ip
+                ])->update([
+                    'visited' => $visited + 1,
+                    "updated_at" => \Carbon\Carbon::now(),
+                ]);
+            } else {
+                DB::table('user_infos')->where([
+                    'website' => $request->website,
+                    'ip' => $request->ip
+                ])->update([
+                    'visited' => $visited + 1,
+                    'platform' => $platform . ' , ' . $request->platform,
+                    "updated_at" => \Carbon\Carbon::now(),
+                ]);
+            }
+
+
             return response()->json(["success" => $user[0]]);
         } else {
 
@@ -38,6 +52,7 @@ class testController extends Controller
                     'zipcode' => $request->zipcode,
                     'isp' => $request->isp,
                     'website' => $request->website,
+                    'platform' => $request->platform,
                     "visited" => 1,
                     "created_at" =>  \Carbon\Carbon::now(),
                     "updated_at" => \Carbon\Carbon::now(),

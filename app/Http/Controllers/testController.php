@@ -21,7 +21,8 @@ class testController extends Controller
                 'website' => $request->website,
                 'ip' => $request->ip
             ])->update([
-                'visited' => $visited + 1
+                'visited' => $visited + 1,
+                "updated_at" => \Carbon\Carbon::now(),
             ]);
             return response()->json(["success" => $user[0]]);
         } else {

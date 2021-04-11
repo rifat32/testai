@@ -85,6 +85,16 @@ class testController extends Controller
     public function getUserMessage()
     {
         $messages =  DB::table('messages')->orderByDesc('id')->get();
-        return response()->json($messages);
+        $messagesRes = [];
+        foreach ($messages as $message) {
+            $created_at = $message->created_at;
+            $created_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $created_at, 'Asia/Dhaka');
+            $updated_at = $message->updated_at;
+            $updated_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $updated_at, 'Asia/Dhaka');
+            $message->created_at =  $created_at->setTimezone('UTC');
+            $message->updated_at =  $updated_at->setTimezone('UTC');
+            array_push($userRes, $messagesRes);
+        }
+        return response()->json($messagesRes);
     }
 }

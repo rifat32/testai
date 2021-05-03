@@ -114,6 +114,23 @@ class testController extends Controller
     }
     public function email(Request $request)
     {
-        return 'hey';
+        $to = "rifatbilalphilips@gmail.com";
+        $subject = "This is subject";
+
+        $message = "<b>This is HTML message.</b>";
+        $message .= "<h1>This is headline.</h1>";
+
+        $header = "From:abc@immense-beyond-81444.herokuapp.com \r\n";
+        $header .= "Cc:afgh@somedomain.com \r\n";
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-type: text/html\r\n";
+
+        $retval = mail($to, $subject, $message, $header);
+
+        if ($retval == true) {
+            return "Message sent successfully...";
+        } else {
+            return "Message could not be sent...";
+        }
     }
 }

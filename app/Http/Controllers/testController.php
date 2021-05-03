@@ -112,4 +112,8 @@ class testController extends Controller
         }
         return response()->json($messagesRes);
     }
+    public function email(Request $request)
+    {
+        return 'hey';
+    }
 }

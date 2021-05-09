@@ -112,4 +112,11 @@ class testController extends Controller
         }
         return response()->json($messagesRes);
     }
+    public function test(Request $request)
+    {
+
+        return response()->json([
+            'number' => $request->number
+        ]);
+    }
 }

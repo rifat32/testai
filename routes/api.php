@@ -23,4 +23,4 @@ Route::get('user', [testController::class, 'getUserInfo']);
 
 Route::post('message', [testController::class, 'userMessage']);
 Route::get('message', [testController::class, 'getUserMessage']);
-Route::post('test', [testController::class, 'test']);
+Route::get('test', [testController::class, 'test']);

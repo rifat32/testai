@@ -116,7 +116,7 @@ class testController extends Controller
     {
 
         return response()->json([
-            'number' => 1
+            'number' => $request->number
         ]);
     }
 }

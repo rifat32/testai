@@ -119,4 +119,30 @@ class testController extends Controller
             'number' => $request->number
         ]);
     }
+    public function duplicate(Request $request)
+    {
+
+        $inputText = $request->text;
+        $table = DB::table('duplicates');
+        $tableQuery = $table->where([
+            'text' => $inputText
+            ]);
+
+        if($tableQuery->exists()){
+            return response()->json([
+           'status' => 200
+                ]);
+
+
+        } else {
+            $table->insert([
+                'text' => $inputText
+            ]);
+            return response()->json([
+                'status' => 201
+                     ]);
+        }
+
+
+    }
 }

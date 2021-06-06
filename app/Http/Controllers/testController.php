@@ -121,39 +121,36 @@ class testController extends Controller
     }
     public function duplicate(Request $request)
     {
-      $allts =  DB::table('duplicates')->get();
-      foreach($allts as $allt) {
-        DB::table('duplicate_counts')->insert([
-                    'text' => $allt->text,
-                    'count' => 1
+
+        $inputText = $request->text;
+        $table = DB::table('duplicate_counts');
+        $tableQuery = $table->where([
+            'text' => $inputText
+            ]);
+
+
+        if($tableQuery->exists()){
+            $text = $tableQuery->first();
+            $tableQuery->update([
+            'count' => $text->count + 1
+            ]);
+            return response()->json([
+           'status' => 200,
+           'count' =>$text->count + 1
                 ]);
-      }
-      $allts2 =  DB::table('duplicate_counts')->get();
-           return response()->json([
+
+
+        }
+        else {
+            $table->insert([
+                'text' => $inputText,
+                'count' => 1
+            ]);
+            return response()->json([
                 'status' => 201,
-                'a1' => $allts ,
-                'a2' => $allts2
+                'count' => 1
                      ]);
-        // $inputText = $request->text;
-        // $table = DB::table('duplicates');
-        // $tableQuery = $table->where([
-        //     'text' => $inputText
-        //     ]);
-
-        // if($tableQuery->exists()){
-        //     return response()->json([
-        //    'status' => 200
-        //         ]);
-
-
-        // } else {
-        //     $table->insert([
-        //         'text' => $inputText
-        //     ]);
-        //     return response()->json([
-        //         'status' => 201
-        //              ]);
-        // }
+        }
 
 
     }

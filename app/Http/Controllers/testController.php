@@ -127,8 +127,6 @@ class testController extends Controller
         $tableQuery = $table->where([
             'text' => $inputText
             ]);
-
-
         if($tableQuery->exists()){
             $text = $tableQuery->first();
             $previous_count   = $text->count;

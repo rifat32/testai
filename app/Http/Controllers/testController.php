@@ -140,8 +140,8 @@ class testController extends Controller
             // $updatedCount = $updatedText->count;
             return response()->json([
            'status' => 200,
-           'previousCount' =>$count,
-           'updatedCount' => $text 
+           'previousCount' =>$updatedText,
+           'updatedCount' => $text
                 ]);
         }
         else {

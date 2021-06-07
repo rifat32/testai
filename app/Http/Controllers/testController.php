@@ -137,6 +137,7 @@ class testController extends Controller
             'count' => $count + 1
             ]);
             $updatedText = $tableQuery->first();
+            $updatedCount = $updatedText->count;
             return response()->json([
            'status' => 200,
            'previousCount' =>$count,

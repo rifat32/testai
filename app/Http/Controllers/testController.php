@@ -127,16 +127,18 @@ class testController extends Controller
         $tableQuery = $table->where([
             'text' => $inputText
             ]);
-
-
         if($tableQuery->exists()){
             $text = $tableQuery->first();
+            $previous_count   = $text->count;
             $tableQuery->update([
-            'count' => $text->count + 1
+            'count' => $previous_count + 1
             ]);
+            $updated_text = $tableQuery->first();
+            $updated_count = $updated_text->count;
             return response()->json([
            'status' => 200,
-           'count' =>$text->count + 1
+           'previousCount' => $previous_count,
+           'updatedCount' => $updated_count
                 ]);
 
 
@@ -147,10 +149,10 @@ class testController extends Controller
                 'count' => 1
             ]);
             return response()->json([
-                'status' => 201,
-                'count' => 1
+                'status' => 201
                      ]);
         }
+
 
     }
 }
